@@ -17,14 +17,14 @@ public class Cuestionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idcuestionario;
+    private int id;
 
     private String titulo;
 
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "idCuestionario", nullable = false)
-    private Cuestionario objCuestionario;
+    @JoinColumn(name = "idPregunta", nullable = false)
+    private Pregunta objPregunta;
 
 }

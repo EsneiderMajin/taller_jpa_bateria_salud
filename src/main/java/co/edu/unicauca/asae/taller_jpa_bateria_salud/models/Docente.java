@@ -18,7 +18,7 @@ public class Docente extends Persona{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String idpersona;
+    private int idpersona;
 
     private String correo;
 

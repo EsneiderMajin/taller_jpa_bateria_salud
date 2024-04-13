@@ -25,7 +25,7 @@ public class Pregunta {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "objPregunta")
 	private List<Respuesta> respuestas;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCuestionario")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objPregunta")
     private List<Cuestionario> cuestionarios;
 
     @OneToOne(mappedBy = "objPregunta")
