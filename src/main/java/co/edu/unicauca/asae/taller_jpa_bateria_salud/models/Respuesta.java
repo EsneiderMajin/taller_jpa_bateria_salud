@@ -1,20 +1,17 @@
 package co.edu.unicauca.asae.taller_jpa_bateria_salud.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Respuesta")
 public class Respuesta {
     
@@ -25,6 +22,10 @@ public class Respuesta {
     @ManyToOne
     @JoinColumn(name = "idPregunta", nullable = false)
     private Pregunta objPregunta;
+
+    @OneToOne
+    @JoinColumn(name = "idDocente")
+    private Docente objDocente;
 
 
 }

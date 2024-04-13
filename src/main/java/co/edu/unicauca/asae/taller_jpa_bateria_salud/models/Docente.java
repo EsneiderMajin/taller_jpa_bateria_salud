@@ -1,18 +1,20 @@
 package co.edu.unicauca.asae.taller_jpa_bateria_salud.models;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
+import java.util.List;
 
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Docentes")
-public class Docente {
+public class Docente extends Persona{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,16 @@ public class Docente {
 
     private String vinculacion;
 
+    @OneToOne(mappedBy = "objDocente")
+    private Telefono objTelefono;
 
+    @OneToOne(mappedBy = "objDocente")
+    private Respuesta objRespuesta;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="DocenteDepartamento",
+                joinColumns = @JoinColumn(name="idDocente"),
+                inverseJoinColumns = @JoinColumn(name="idDepartamento"))
+    private List<Departamento> listaDepartamentos;
 
 }

@@ -1,19 +1,18 @@
 package co.edu.unicauca.asae.taller_jpa_bateria_salud.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
+
 import java.util.List;
-import jakarta.persistence.FetchType;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Preguntas")
 public class Pregunta {
     
@@ -25,5 +24,13 @@ public class Pregunta {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "objPregunta")
 	private List<Respuesta> respuestas;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objCuestionario")
+    private List<Cuestionario> cuestionarios;
+
+    @OneToOne(mappedBy = "objPregunta")
+    private TipoPregunta objTipoPregunta;
+
+
 
 }
