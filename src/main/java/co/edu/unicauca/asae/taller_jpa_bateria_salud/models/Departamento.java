@@ -22,11 +22,12 @@ public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@Column(name = "iddepartamento", nullable = false)
-    private int id;
+    private int iddepartamento;
 
-    @Column(name = "nombredep", nullable = false, length = 50)
+    @Column(name = "nombredep", nullable = false, length = 30)
     private String nombre;
 
+    @Column( nullable = false, length = 30)
     private String descripcion;
     
 

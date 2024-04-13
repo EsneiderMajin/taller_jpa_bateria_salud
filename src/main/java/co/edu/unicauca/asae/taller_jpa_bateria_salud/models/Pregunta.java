@@ -20,15 +20,16 @@ public class Pregunta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idpregunta;
 
+    @Column(nullable = false, length = 30)
     private String enunciado;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objPregunta")
+    @OneToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY, mappedBy = "objPregunta")
 	private List<Respuesta> respuestas;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objPregunta")
+    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, mappedBy = "objPregunta")
     private List<Cuestionario> cuestionarios;
 
-    @OneToOne(mappedBy = "objPregunta")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objPregunta")
     private TipoPregunta objTipoPregunta;
 
 

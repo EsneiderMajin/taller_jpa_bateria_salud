@@ -27,5 +27,4 @@ public class Respuesta {
     @JoinColumn(name = "idDocente")
     private Docente objDocente;
 
-
 }

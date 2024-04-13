@@ -15,19 +15,17 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Docentes")
 public class Docente extends Persona{
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idpersona;
 
+    @Column(nullable = false, length = 30)
     private String correo;
 
+    @Column(nullable = false, length = 30)
     private String vinculacion;
 
-    @OneToOne(mappedBy = "objDocente")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objDocente")
     private Telefono objTelefono;
 
-    @OneToOne(mappedBy = "objDocente")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objDocente")
     private Respuesta objRespuesta;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -35,5 +33,6 @@ public class Docente extends Persona{
                 joinColumns = @JoinColumn(name="idDocente"),
                 inverseJoinColumns = @JoinColumn(name="idDepartamento"))
     private List<Departamento> listaDepartamentos;
+
 
 }

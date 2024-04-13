@@ -19,8 +19,10 @@ public class Telefono {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idtelefono;
 
+    @Column(nullable = false, length = 30)
     private String tipotelefono;
 
+    @Column(nullable = false, length = 30)
     private String numero;
 
     @OneToOne

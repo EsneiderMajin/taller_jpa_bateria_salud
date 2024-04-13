@@ -17,10 +17,12 @@ public class Cuestionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idcustionario;
 
+    @Column( nullable = false, length = 30)
     private String titulo;
 
+    @Column( nullable = false, length = 30)
     private String descripcion;
 
     @ManyToOne

@@ -20,12 +20,16 @@ public class Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idpersona;
 
+    @Column(nullable = false, length = 30)
     private String tipoidentificacion;
 
+    @Column(unique = true, nullable = false, length = 30)
     private String numeroidentificacion;
 
+    @Column(nullable = false, length = 30)
     private String nombres;
 
+    @Column(nullable = false, length = 30)
     private String apellidos;
 
 
