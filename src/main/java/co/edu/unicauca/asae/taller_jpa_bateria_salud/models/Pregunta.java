@@ -26,12 +26,11 @@ public class Pregunta {
     @OneToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY, mappedBy = "objPregunta")
 	private List<Respuesta> respuestas;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, mappedBy = "objPregunta")
-    private List<Cuestionario> cuestionarios;
-
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objPregunta")
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objPregunta")
     private TipoPregunta objTipoPregunta;
 
-
+    @ManyToOne
+    @JoinColumn(name = "idCuestionario", nullable = false)
+    private Cuestionario objCuestionario;
 
 }

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -25,8 +27,7 @@ public class Cuestionario {
     @Column( nullable = false, length = 30)
     private String descripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "idPregunta", nullable = false)
-    private Pregunta objPregunta;
+    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "objCuestionario ")
+    private List<Pregunta> preguntas;
 
 }

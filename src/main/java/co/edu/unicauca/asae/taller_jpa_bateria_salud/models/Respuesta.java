@@ -18,6 +18,9 @@ public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idrespuesta;
+
+    @Column(nullable = false, length = 30)
+    private String descripcion;
     
     @ManyToOne
     @JoinColumn(name = "idPregunta", nullable = false)
