@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +13,6 @@ import java.util.List;
 @Setter
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "Docentes")
 public class Docente extends Persona{
 
@@ -34,5 +34,8 @@ public class Docente extends Persona{
                 inverseJoinColumns = @JoinColumn(name="idDepartamento"))
     private List<Departamento> listaDepartamentos;
 
+    public Docente(){
+        this.listaDepartamentos = new ArrayList<>();
+    }
 
 }

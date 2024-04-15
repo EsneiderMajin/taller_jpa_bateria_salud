@@ -89,6 +89,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 			objPregunta.setObjTipoPregunta(objTipoPregunta);
             objPregunta.setObjCuestionario(objCuestionario);
             /*
+            // las preguntas las creo con el docente
 			System.out.println("Digite el numero de respuestas de la pregunta: ");
 			int numRespuestas = scanner.nextInt();
 			scanner.nextLine();
@@ -143,12 +144,14 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
 		System.out.printf("Digite el numero de departamentos: ");
 		int numDepartamentos = scanner.nextInt();
+        scanner.nextLine();
 		for (int i = 0; i < numDepartamentos; i++) {
 			Departamento objDepartamento = new Departamento();
-			System.out.printf("Digite el nombre del departamento: %d", i + 1);
+
+			System.out.printf("Digite el nombre del departamento %d: ", i + 1);
 			String nombreDepartamento = scanner.nextLine();
 			objDepartamento.setNombre(nombreDepartamento);
-			System.out.printf("Digite la descripcion del departamento: %d", i + 1);
+			System.out.printf("Digite la descripcion del departamento %d: ", i + 1);
 			String descripcionDepartamento = scanner.nextLine();
 			objDepartamento.setDescripcion(descripcionDepartamento);
 			objDocente.getListaDepartamentos().add(objDepartamento);
@@ -167,6 +170,42 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 		int idDocente = scanner.nextInt();
 		Docente objDocente = servicioBDDocentes.findById(idDocente).get();
 
+        System.out.printf("Cuestionarios disponibles: ");
+        servicioBDCuestionarios.findAll().forEach(cuestionario -> {
+            System.out.printf("Id: %d, Titulo: %s, Descripcion: %s", cuestionario.getIdCuestionario(), cuestionario.getTitulo(), cuestionario.getDescripcion());
+        });
+
+        System.out.printf("Digite el id del cuestionario:");
+        int idCuestionario = scanner.nextInt();
+        Cuestionario objCuestionario = servicioBDCuestionarios.findById(idCuestionario).get();
+
+        System.out.printf("Las preguntas disponibles son: ");
+        objCuestionario.getPreguntas().forEach(pregunta -> {
+            System.out.printf("Id: %d, Enunciado: %s", pregunta.getIdpregunta(), pregunta.getEnunciado());
+        });
+
+        System.out.printf("Digite el id de la pregunta");
+        int idPregunta = scanner.nextInt();
+		Pregunta objPregunta = servicioBDPreguntas.findById(idPregunta).get();
+		scanner.nextLine();
+
+		Respuesta objRespuesta = new Respuesta();
+		System.out.printf("Digite la descripcion de la respuesta a la pregunta: ");
+		String respuesta = scanner.nextLine();
+		objRespuesta.setDescripcion(respuesta);
+		objRespuesta.setObjDocente(objDocente);
+		objDocente.setObjRespuesta(objRespuesta);
+		objRespuesta.setObjPregunta(objPregunta);
+		//objPregunta.getRespuestas().add(objRespuesta);
+
+		//objCuestionario.getPreguntas().get(idPregunta).getRespuestas().add(objRespuesta);
+
+            //objRespuesta.setObjPregunta(objCuestionario.getPreguntas().stream().filter(
+                    //pregunta -> pregunta.getIdpregunta() == idPregunta).findFirst().get());
+            //servicioBDRespuestas.save(objRespuesta);
+
+
+        /*
 		System.out.printf("Las respuestas disponibles son: ");
 		servicioBDRespuestas.findAll().forEach(respuesta -> {
 			System.out.printf("Id: %d, Descripcion: %s", respuesta.getIdrespuesta(), respuesta.getDescripcion());
@@ -176,7 +215,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 		int idRespuesta = scanner.nextInt();
 		Respuesta objRespuesta = servicioBDRespuestas.findById(idRespuesta).get();
 		objDocente.setObjRespuesta(objRespuesta);
-
+        */
 	}
 
 	public void listarCuestionarios(){
