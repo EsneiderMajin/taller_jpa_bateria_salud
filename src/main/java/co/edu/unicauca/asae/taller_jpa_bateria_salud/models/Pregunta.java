@@ -23,7 +23,7 @@ public class Pregunta {
     @Column(nullable = false, length = 30)
     private String enunciado;
 
-    @OneToMany(cascade = {CascadeType.PERSIST},fetch = FetchType.LAZY, mappedBy = "objPregunta")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objPregunta")
 	private List<Respuesta> respuestas;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objPregunta")

@@ -19,7 +19,7 @@ public class Cuestionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idcustionario;
+    private int idCuestionario;
 
     @Column( nullable = false, length = 30)
     private String titulo;
@@ -27,7 +27,7 @@ public class Cuestionario {
     @Column( nullable = false, length = 30)
     private String descripcion;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "objCuestionario")
+    @OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY, mappedBy = "objCuestionario")
     private List<Pregunta> preguntas;
 
 }
