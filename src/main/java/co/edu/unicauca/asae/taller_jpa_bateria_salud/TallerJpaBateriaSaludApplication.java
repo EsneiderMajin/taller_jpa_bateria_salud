@@ -88,20 +88,8 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 			objTipoPregunta.setDescripcion(descripcionTipoPregunta);
 			objPregunta.setObjTipoPregunta(objTipoPregunta);
             objPregunta.setObjCuestionario(objCuestionario);
-            /*
             // las preguntas las creo con el docente
-			System.out.println("Digite el numero de respuestas de la pregunta: ");
-			int numRespuestas = scanner.nextInt();
-			scanner.nextLine();
-			for (int j = 0; j < numRespuestas; j++) {
-				Respuesta objRespuesta = new Respuesta();
-				System.out.printf("Digite la descripcion de la respuesta %d: ", j + 1);
-				String respuesta = scanner.nextLine();
-				objRespuesta.setDescripcion(respuesta);
-				if (objPregunta.getRespuestas() == null) objPregunta.setRespuestas(new ArrayList<>());
-				objPregunta.getRespuestas().add(objRespuesta);
-			}
-			*/
+
 
 			if (objCuestionario.getPreguntas() == null) objCuestionario.setPreguntas(new ArrayList<>());
 			objCuestionario.getPreguntas().add(objPregunta);
@@ -200,22 +188,9 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
 		//objCuestionario.getPreguntas().get(idPregunta).getRespuestas().add(objRespuesta);
 
-            //objRespuesta.setObjPregunta(objCuestionario.getPreguntas().stream().filter(
-                    //pregunta -> pregunta.getIdpregunta() == idPregunta).findFirst().get());
-            //servicioBDRespuestas.save(objRespuesta);
-
-
-        /*
-		System.out.printf("Las respuestas disponibles son: ");
-		servicioBDRespuestas.findAll().forEach(respuesta -> {
-			System.out.printf("Id: %d, Descripcion: %s", respuesta.getIdrespuesta(), respuesta.getDescripcion());
-		});
-
-		System.out.printf("Digite el id de la respuesta: ");
-		int idRespuesta = scanner.nextInt();
-		Respuesta objRespuesta = servicioBDRespuestas.findById(idRespuesta).get();
-		objDocente.setObjRespuesta(objRespuesta);
-        */
+		//pasar un listado de respuestas
+		servicioBDRespuestas.save(objRespuesta);
+		
 	}
 
 	public void listarCuestionarios(){
