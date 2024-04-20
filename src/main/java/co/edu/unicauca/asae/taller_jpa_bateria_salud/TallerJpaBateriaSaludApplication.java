@@ -52,12 +52,84 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+		cargaDatos();
 		System.out.println("---------Funciones--------------");
 		crearCuestionario();
 		registrarDocente();
 		registrarRespuestasCuestionario();
 		listarCuestionarios();
 		listarRespuestasCuestionarios();
+	}
+
+	public void cargaDatos(){
+		//Tipo preguntas
+		TipoPregunta objPregunta1 = new TipoPregunta(1,"cultura","Pregutas culturales",null);
+		TipoPregunta objPregunta2 = new TipoPregunta(2,"rutina","Pregutas cotidianas",null);
+		this.servicioBDTipoPreguntas.save(objPregunta1);
+		this.servicioBDTipoPreguntas.save(objPregunta2);
+		//Departamentos
+		Departamento objDepartamento1 = new Departamento(1,"Cauca","Departamento del cauca");
+		Departamento objDepartamento2 = new Departamento(2,"Valle","Departamento del valle");
+		this.servicioBDDepartamentos.save(objDepartamento1);
+		this.servicioBDDepartamentos.save(objDepartamento2);
+	}
+
+	public void fun_prueba(){
+		//creaciondocente
+		Docente objDocente = new Docente();
+		objDocente.setNombres("pedro");
+		objDocente.setApellidos("perez");
+		objDocente.setNumeroidentificacion("123");
+		objDocente.setTipoidentificacion("cedula");
+		objDocente.setCorreo("correo");
+		objDocente.setVinculacion("presencial");
+
+		// Inicializar el teléfono del docente
+		Telefono telefono = new Telefono();
+		telefono.setTipotelefono("celular");
+		telefono.setNumero("1234567890");
+		objDocente.setObjTelefono(telefono); //~~~~~~~~~~~~~~~~~~~asigo telefono a docente
+		//inicializacion departamento
+		Departamento departamento = new Departamento();
+		departamento.setNombre("Nombre del departamento");
+		departamento.setDescripcion("Descripción del departamento");
+		List<Departamento> listaDepartamentos = new ArrayList<>();
+		listaDepartamentos.add(departamento);
+		objDocente.setListaDepartamentos(listaDepartamentos); //~~~~~~~~~~~~~~~~~asigno depa a docente
+
+		Pregunta pregunta = new Pregunta();
+		pregunta.setEnunciado("¿Cuál es tu color favorito?");
+		TipoPregunta objTipPregunta1 = new TipoPregunta(1,"cultura","Pregutas culturales",null);
+		pregunta.setObjTipoPregunta(objTipPregunta1);
+		// Inicializar la lista de respuestas
+		List<Respuesta> respuestas = new ArrayList<>();
+		Respuesta respuesta1 = new Respuesta();
+		respuesta1.setDescripcion("Azul");
+		respuesta1.setObjDocente(objDocente);
+		//objDocente.setObjRespuesta(respuesta1);
+
+		// Agregar las respuestas a la lista de respuestas
+		respuestas.add(respuesta1);
+		pregunta.setRespuestas(respuestas);
+
+		// Inicializar el tipo de pregunta
+
+
+		// Inicializar el cuestionario
+		Cuestionario cuestionario = new Cuestionario();
+		// Supongamos que el id del cuestionario es 1
+		cuestionario.setTitulo("cuestionario");
+		cuestionario.setDescripcion("cuestionario de prueba");
+		pregunta.setObjCuestionario(cuestionario);
+
+		this.servicioBDTelefonos.save(telefono);
+		this.servicioBDDepartamentos.save(departamento);
+		this.servicioBDTipoPreguntas.save(objTipPregunta1);
+		this.servicioBDCuestionarios.save(cuestionario);
+		this.servicioBDDocentes.save(objDocente);
+		this.servicioBDDepartamentos.save(null);
+
 	}
 
 	public void crearCuestionario() {
