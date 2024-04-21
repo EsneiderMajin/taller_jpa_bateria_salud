@@ -1,9 +1,6 @@
 package co.edu.unicauca.asae.taller_jpa_bateria_salud.models;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +25,10 @@ public class Docente extends Persona{
     @OneToOne(mappedBy = "objDocente")
     private Respuesta objRespuesta;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(name="DocenteDepartamento",
-                joinColumns = @JoinColumn(name="idDocente"),
-                inverseJoinColumns = @JoinColumn(name="idDepartamento"))
+                joinColumns = @JoinColumn(name="iddocente"),
+                inverseJoinColumns = @JoinColumn(name="iddepartamento"))
     private List<Departamento> listaDepartamentos;
 
     public Docente(){

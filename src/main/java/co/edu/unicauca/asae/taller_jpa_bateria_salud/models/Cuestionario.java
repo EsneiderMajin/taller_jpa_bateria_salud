@@ -1,16 +1,14 @@
 package co.edu.unicauca.asae.taller_jpa_bateria_salud.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Cuestionarios")
@@ -19,7 +17,7 @@ public class Cuestionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCuestionario;
+    private int idcuestionario;
 
     @Column( nullable = false, length = 30)
     private String titulo;
