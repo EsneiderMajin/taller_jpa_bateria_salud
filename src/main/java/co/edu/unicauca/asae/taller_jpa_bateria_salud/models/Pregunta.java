@@ -21,7 +21,7 @@ public class Pregunta {
     @Column(nullable = false, length = 30)
     private String enunciado;
 
-    @OneToMany(mappedBy = "objPregunta")
+    @OneToMany(mappedBy = "objPregunta", fetch = FetchType.EAGER)
 	private List<Respuesta> listaRespuestas;
 
     /*
@@ -33,8 +33,8 @@ public class Pregunta {
     @JoinColumn(name="idTipoPregunta")
     private TipoPregunta objTipoPregunta;
 */
-    //preguntar al profe, creo que es merge, el persist es para crear, el merge es para actualizar
-    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    //
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTipoPregunta", nullable = false)
     private TipoPregunta objTipoPregunta;
 

@@ -18,7 +18,7 @@ public class TallerJpaBateriaSaludApplication {
 }
 */
 @SpringBootApplication
-@Transactional
+
 public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
     Scanner scanner = new Scanner(System.in);
@@ -93,14 +93,8 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
             }
         } while (opcion!=6);
 
-        // crearCuestionario();
-        //1registrarDocente();
-        // registrarRespuestasCuestionario();
-        // listarCuestionarios();
-        // listarRespuestasCuestionarios();
-        //fun_prueba();
     }
-
+    @Transactional
     public void cargaDatos(){
         //Tipo preguntas
         TipoPregunta objPregunta1 = new TipoPregunta(1,"cultura","Pregutas culturales",null);
@@ -115,102 +109,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
 
     }
-    public void fun_prueba(){
-        //creaciondocente
-        Docente objDocente = new Docente();
-        objDocente.setNombres("pedro");
-        objDocente.setApellidos("perez");
-        objDocente.setNumeroidentificacion("123");
-        objDocente.setTipoidentificacion("cedula");
-        objDocente.setCorreo("correo");
-        objDocente.setVinculacion("presencial");
-
-        // Inicializar el teléfono del docente
-        Telefono telefono = new Telefono();
-        telefono.setTipotelefono("celular");
-        telefono.setNumero("1234567890");
-        objDocente.setObjTelefono(telefono); //~~~~~~~~~~~~~~~~~~~asigo telefono a docente
-        //inicializacion departamento
-        Departamento departamento = new Departamento();
-        departamento.setNombre("Nombre del departamento");
-        departamento.setDescripcion("Descripción del departamento");
-        List<Departamento> listaDepartamentos = new ArrayList<>();
-        listaDepartamentos.add(departamento);
-        objDocente.setListaDepartamentos(listaDepartamentos); //~~~~~~~~~~~~~~~~~asigno depa a docente
-
-        Pregunta pregunta = new Pregunta();
-        pregunta.setEnunciado("¿Cuál es tu color favorito?");
-        TipoPregunta objTipPregunta1 = new TipoPregunta(1,"cultura","Pregutas culturales",null);
-        pregunta.setObjTipoPregunta(objTipPregunta1);
-        // Inicializar la lista de respuestas
-        List<Respuesta> respuestas = new ArrayList<>();
-        Respuesta respuesta1 = new Respuesta();
-        respuesta1.setDescripcion("Azul");
-        respuesta1.setObjDocente(objDocente);
-        //objDocente.setObjRespuesta(respuesta1);
-
-        // Agregar las respuestas a la lista de respuestas
-        respuestas.add(respuesta1);
-        pregunta.setListaRespuestas(respuestas);
-
-        // Inicializar el tipo de pregunta
-
-
-        // Inicializar el cuestionario
-        Cuestionario cuestionario = new Cuestionario();
-        // Supongamos que el id del cuestionario es 1
-        cuestionario.setTitulo("cuestionario");
-        cuestionario.setDescripcion("cuestionario de prueba");
-        pregunta.setObjCuestionario(cuestionario);
-
-        this.servicioBDTelefonos.save(telefono);
-        this.servicioBDDepartamentos.save(departamento);
-        this.servicioBDTipoPreguntas.save(objTipPregunta1);
-        this.servicioBDCuestionarios.save(cuestionario);
-        this.servicioBDDocentes.save(objDocente);
-        this.servicioBDDepartamentos.save(null);
-
-    }
-    public void crearCuestionario() {
-        System.out.println("---------Crear Cuestionario--------------");
-        Cuestionario objCuestionario = new Cuestionario();
-        System.out.printf("Digite el titulo: ");
-        String titulo = scanner.nextLine();
-        objCuestionario.setTitulo(titulo);
-        System.out.printf("Digite la descripcion: ");
-        String descripcion = scanner.nextLine();
-        objCuestionario.setDescripcion(descripcion);
-        System.out.printf("Digite el numero de preguntas del cuestionario:");
-        int numPreguntas = scanner.nextInt();
-        scanner.nextLine();
-        for (int i = 0; i < numPreguntas; i++) {
-            Pregunta objPregunta = new Pregunta();
-            System.out.println("Digite la pregunta: " + (i+1));
-            System.out.println("-Digite el enunciado de la pregunta:");
-            String enunciado = scanner.nextLine();
-            objPregunta.setEnunciado(enunciado);
-
-            System.out.println("Tipos de pregunta disponibles: ");
-            servicioBDTipoPreguntas.findAll().forEach(tipoPregunta -> {System.out.printf("id: %d, nombre: %s,descripcion: %s"
-                    ,tipoPregunta.getIdtippregunta(),tipoPregunta.getNombre(),tipoPregunta.getDescripcion());});
-            System.out.println("Seleccione el id de la pregunta");
-            int idPreg = scanner.nextInt();
-            scanner.nextLine();
-            TipoPregunta TipPregunta =  servicioBDTipoPreguntas.findById(idPreg).get();
-            objPregunta.setObjTipoPregunta(TipPregunta);
-            objPregunta.setObjCuestionario(objCuestionario);
-
-            // las preguntas las creo con el docente
-
-
-            if (objCuestionario.getPreguntas() == null) objCuestionario.setPreguntas(new ArrayList<>());
-            objCuestionario.getPreguntas().add(objPregunta);
-        }
-        servicioBDCuestionarios.save(objCuestionario);
-    }
-
-
-
+    @Transactional
     public void registrarDocente(){
         boolean flag = true;
         while (flag) {
@@ -263,7 +162,46 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
             }
         }
     }
+    @Transactional
+    public void crearCuestionario() {
+        System.out.println("---------Crear Cuestionario--------------");
+        Cuestionario objCuestionario = new Cuestionario();
+        System.out.printf("Digite el titulo: ");
+        String titulo = scanner.nextLine();
+        objCuestionario.setTitulo(titulo);
+        System.out.printf("Digite la descripcion: ");
+        String descripcion = scanner.nextLine();
+        objCuestionario.setDescripcion(descripcion);
+        System.out.printf("Digite el numero de preguntas del cuestionario:");
+        int numPreguntas = scanner.nextInt();
+        scanner.nextLine();
+        for (int i = 0; i < numPreguntas; i++) {
+            Pregunta objPregunta = new Pregunta();
+            System.out.println("Digite la pregunta: " + (i+1));
+            System.out.println("-Digite el enunciado de la pregunta:");
+            String enunciado = scanner.nextLine();
+            objPregunta.setEnunciado(enunciado);
 
+            System.out.println("Tipos de pregunta disponibles: ");
+            servicioBDTipoPreguntas.findAll().forEach(tipoPregunta -> {System.out.printf("id: %d, nombre: %s,descripcion: %s"
+                    ,tipoPregunta.getIdtippregunta(),tipoPregunta.getNombre(),tipoPregunta.getDescripcion());});
+            System.out.println("Seleccione el id de la pregunta");
+            int idPreg = scanner.nextInt();
+            scanner.nextLine();
+            TipoPregunta TipPregunta =  servicioBDTipoPreguntas.findById(idPreg).get();
+            objPregunta.setObjTipoPregunta(TipPregunta);
+            objPregunta.setObjCuestionario(objCuestionario);
+
+            // las preguntas las creo con el docente
+
+
+            if (objCuestionario.getPreguntas() == null) objCuestionario.setPreguntas(new ArrayList<>());
+            objCuestionario.getPreguntas().add(objPregunta);
+        }
+        servicioBDCuestionarios.save(objCuestionario);
+    }
+
+    @Transactional
     public void registrarRespuestasCuestionario(){
         System.out.println("---------Registrar Respuestas Cuestionario--------------");
         System.out.println("Docentes disponibles: ");
@@ -301,10 +239,14 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
             objRespuesta.setDescripcion(respuesta);
             objRespuesta.setObjDocente(objDocente);
             objRespuesta.setObjPregunta(objPregunta);
-            objDocente.getListaRespuestas().add(objRespuesta);
+            //objDocente.getListaRespuestas().add(objRespuesta);
             //objCuestionario.getPreguntas().add(objPregunta);
+
             //Preguntar
-            objCuestionario.getPreguntas().forEach(pregunta -> {pregunta.getListaRespuestas().add(objRespuesta);});
+            //objCuestionario.getPreguntas().forEach(pregunta -> {pregunta.getListaRespuestas().add(objRespuesta);});
+
+
+
             //objPregunta.getRespuestas().add(objRespuesta);
 
             //objCuestionario.getPreguntas().get(idPregunta).getRespuestas().add(objRespuesta);
@@ -326,6 +268,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
     }
 
+    @Transactional
     public void listarCuestionarios(){
 
         System.out.println("---------Listar Cuestionarios--------------");
@@ -340,7 +283,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
         });
 
     }
-
+    @Transactional
     public void listarRespuestasCuestionarios(){
         System.out.println("---------Listar Respuestas Cuestionario--------------");
         System.out.println("Cuestionarios disponibles:");
