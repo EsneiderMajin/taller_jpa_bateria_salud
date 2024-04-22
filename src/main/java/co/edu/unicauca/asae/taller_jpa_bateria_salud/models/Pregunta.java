@@ -1,10 +1,7 @@
 package co.edu.unicauca.asae.taller_jpa_bateria_salud.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @Table(name = "Preguntas")
 public class Pregunta {

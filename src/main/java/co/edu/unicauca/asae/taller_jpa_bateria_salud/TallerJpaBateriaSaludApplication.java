@@ -17,7 +17,6 @@ public class TallerJpaBateriaSaludApplication {
 	}
 }
 */
-
 @SpringBootApplication
 @Transactional
 public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
