@@ -22,11 +22,16 @@ public class Respuesta {
     @Column(nullable = false, length = 30)
     private String descripcion;
     
-    @ManyToOne
-    @JoinColumn(name = "idPregunta", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPregunta")
     private Pregunta objPregunta;
 
+    /*
     @OneToOne
+    @JoinColumn(name = "idDocente")
+    private Docente objDocente;
+*/
+    @ManyToOne
     @JoinColumn(name = "idDocente")
     private Docente objDocente;
 

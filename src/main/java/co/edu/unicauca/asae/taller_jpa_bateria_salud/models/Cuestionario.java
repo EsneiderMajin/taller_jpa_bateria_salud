@@ -19,7 +19,7 @@ public class Cuestionario {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCuestionario;
+    private int idcuestionario;
 
     @Column( nullable = false, length = 30)
     private String titulo;
