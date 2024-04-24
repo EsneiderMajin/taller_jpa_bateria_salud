@@ -24,16 +24,6 @@ public class Pregunta {
     @OneToMany(mappedBy = "objPregunta", fetch = FetchType.EAGER)
 	private List<Respuesta> listaRespuestas;
 
-    /*
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objPregunta")
-    private TipoPregunta objTipoPregunta;
-*/
-/*
-    @OneToOne
-    @JoinColumn(name="idTipoPregunta")
-    private TipoPregunta objTipoPregunta;
-*/
-    //
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTipoPregunta", nullable = false)
     private TipoPregunta objTipoPregunta;
@@ -42,7 +32,6 @@ public class Pregunta {
     @JoinColumn(name = "idCuestionario", nullable = false)
     private Cuestionario objCuestionario;
 
-    //preguntar al profe
     public Pregunta(){
         this.listaRespuestas = new ArrayList<>();
     }

@@ -24,11 +24,6 @@ public class Respuesta {
     @JoinColumn(name = "idPregunta")
     private Pregunta objPregunta;
 
-    /*
-    @OneToOne
-    @JoinColumn(name = "idDocente")
-    private Docente objDocente;
-*/
     @ManyToOne
     @JoinColumn(name = "idDocente")
     private Docente objDocente;

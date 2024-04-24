@@ -24,15 +24,7 @@ public class TipoPregunta {
     @Column(nullable = false, length = 30)
     private String descripcion;
 
-    /*
-    @OneToOne
-    @JoinColumn(name="idPregunta")
-    private Pregunta objPregunta;
-*/
-    /*
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objTipoPregunta")
-    private Pregunta objPregunta;
-*/
+
     @OneToMany(mappedBy = "objTipoPregunta")
     private List<Pregunta> preguntas;
 

@@ -18,7 +18,6 @@ public class TallerJpaBateriaSaludApplication {
 }
 */
 @SpringBootApplication
-
 public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
     Scanner scanner = new Scanner(System.in);
@@ -55,8 +54,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("---------Funciones--------------");
         cargaDatos();
-        // registrarDocente();
-        // crearCuestionario();
+
         int opcion;
         do {
             System.out.println("==========Menu============\n ");
@@ -97,11 +95,11 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
     @Transactional
     public void cargaDatos(){
         //Tipo preguntas
+
         TipoPregunta objPregunta1 = new TipoPregunta(1,"cultura","Pregutas culturales",null);
-        TipoPregunta objPregunta2 = new TipoPregunta(2,"rutina","Pregutas cotidianas",null);
+        TipoPregunta objPregunta2 = new TipoPregunta(2,"deporte","Preguntas deportivas",null);
         this.servicioBDTipoPreguntas.save(objPregunta1);
-        this.servicioBDTipoPreguntas.save(objPregunta2);
-        //Departamentos
+
         Departamento objDepartamento1 = new Departamento(1,"Cauca","Departamento del cauca");
         Departamento objDepartamento2 = new Departamento(2,"Valle","Departamento del valle");
         this.servicioBDDepartamentos.save(objDepartamento1);
@@ -109,6 +107,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
 
 
     }
+
     @Transactional
     public void registrarDocente(){
         boolean flag = true;
@@ -172,18 +171,18 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
         System.out.printf("Digite la descripcion: ");
         String descripcion = scanner.nextLine();
         objCuestionario.setDescripcion(descripcion);
-        System.out.printf("Digite el numero de preguntas del cuestionario:");
+        System.out.printf("Digite el numero de preguntas del cuestionario: ");
         int numPreguntas = scanner.nextInt();
         scanner.nextLine();
         for (int i = 0; i < numPreguntas; i++) {
             Pregunta objPregunta = new Pregunta();
             System.out.println("Digite la pregunta: " + (i+1));
-            System.out.println("-Digite el enunciado de la pregunta:");
+            System.out.println("-Digite el enunciado de la pregunta: ");
             String enunciado = scanner.nextLine();
             objPregunta.setEnunciado(enunciado);
 
             System.out.println("Tipos de pregunta disponibles: ");
-            servicioBDTipoPreguntas.findAll().forEach(tipoPregunta -> {System.out.printf("id: %d, nombre: %s,descripcion: %s"
+            servicioBDTipoPreguntas.findAll().forEach(tipoPregunta -> {System.out.printf("id: %d, nombre: %s,descripcion: %s \n"
                     ,tipoPregunta.getIdtippregunta(),tipoPregunta.getNombre(),tipoPregunta.getDescripcion());});
             System.out.println("Seleccione el id de la pregunta");
             int idPreg = scanner.nextInt();
@@ -191,9 +190,6 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
             TipoPregunta TipPregunta =  servicioBDTipoPreguntas.findById(idPreg).get();
             objPregunta.setObjTipoPregunta(TipPregunta);
             objPregunta.setObjCuestionario(objCuestionario);
-
-            // las preguntas las creo con el docente
-
 
             if (objCuestionario.getPreguntas() == null) objCuestionario.setPreguntas(new ArrayList<>());
             objCuestionario.getPreguntas().add(objPregunta);
@@ -217,7 +213,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
             System.out.printf("Id: %d, Titulo: %s, Descripcion: %s \n", cuestionario.getIdcuestionario(), cuestionario.getTitulo(), cuestionario.getDescripcion());
         });
 
-        System.out.printf("Digite el id del cuestionario:");
+        System.out.printf("Digite el id del cuestionario: ");
         int idCuestionario = scanner.nextInt();
         Cuestionario objCuestionario = servicioBDCuestionarios.findById(idCuestionario).get();
 
@@ -228,7 +224,7 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
         boolean flagPregunta=true;
         while (flagPregunta) {
 
-            System.out.printf("Digite el id de la pregunta");
+            System.out.printf("Digite el id de la pregunta: ");
             int idPregunta = scanner.nextInt();
             Pregunta objPregunta = servicioBDPreguntas.findById(idPregunta).get();
             scanner.nextLine();
@@ -239,17 +235,6 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
             objRespuesta.setDescripcion(respuesta);
             objRespuesta.setObjDocente(objDocente);
             objRespuesta.setObjPregunta(objPregunta);
-            //objDocente.getListaRespuestas().add(objRespuesta);
-            //objCuestionario.getPreguntas().add(objPregunta);
-
-            //Preguntar
-            //objCuestionario.getPreguntas().forEach(pregunta -> {pregunta.getListaRespuestas().add(objRespuesta);});
-
-
-
-            //objPregunta.getRespuestas().add(objRespuesta);
-
-            //objCuestionario.getPreguntas().get(idPregunta).getRespuestas().add(objRespuesta);
 
             //pasar un listado de respuestas
             servicioBDRespuestas.save(objRespuesta);
@@ -274,11 +259,12 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
         System.out.println("---------Listar Cuestionarios--------------");
         servicioBDCuestionarios.findAll().forEach(cuestionario -> {
             System.out.printf("Id: %d, Titulo: %s, Descripcion: %s \n", cuestionario.getIdcuestionario(), cuestionario.getTitulo(), cuestionario.getDescripcion());
-            System.out.println("Preguntas:");
+            System.out.println("Preguntas------");
             cuestionario.getPreguntas().forEach(pregunta -> {
-                System.out.printf("Id: %d, Enunciado: %s", pregunta.getIdpregunta(), pregunta.getEnunciado());
-                System.out.println("Tipo de Pregunta:");
-                System.out.printf("Id: %d, Nombre: %s, Descripcion: %s", pregunta.getObjTipoPregunta().getIdtippregunta(), pregunta.getObjTipoPregunta().getNombre(), pregunta.getObjTipoPregunta().getDescripcion());
+                System.out.printf("Id: %d, Enunciado: %s \n", pregunta.getIdpregunta(), pregunta.getEnunciado());
+                System.out.println("-Tipo de Pregunta ");
+                System.out.printf("Id: %d, Nombre: %s, Descripcion: %s \n", pregunta.getObjTipoPregunta().getIdtippregunta(), pregunta.getObjTipoPregunta().getNombre(), pregunta.getObjTipoPregunta().getDescripcion());
+                System.out.println("---------------");
             });
         });
 
@@ -286,34 +272,30 @@ public class TallerJpaBateriaSaludApplication implements CommandLineRunner {
     @Transactional
     public void listarRespuestasCuestionarios(){
         System.out.println("---------Listar Respuestas Cuestionario--------------");
-        System.out.println("Cuestionarios disponibles:");
+        System.out.println("Cuestionarios disponibles: ");
         servicioBDCuestionarios.findAll().forEach(cuestionario -> {
-            System.out.printf("Id: %d, Titulo: %s, Descripcion: %s", cuestionario.getIdcuestionario(), cuestionario.getTitulo(), cuestionario.getDescripcion());
+            System.out.printf("Id: %d, Titulo: %s, Descripcion: %s \n", cuestionario.getIdcuestionario(), cuestionario.getTitulo(), cuestionario.getDescripcion());
         });
-        System.out.println("Digite el id del cuestionario:");
+        System.out.println("Digite el id del cuestionario: ");
         int idCuestionario = scanner.nextInt();
         Cuestionario objCuestionario = servicioBDCuestionarios.findById(idCuestionario).get();
-        System.out.printf("Titulo Cuestionario: %s", objCuestionario.getTitulo());
-        System.out.printf("Descripcion Cuestionario: %s", objCuestionario.getDescripcion());
+        System.out.printf("Titulo Cuestionario: %s \n", objCuestionario.getTitulo());
+        System.out.printf("Descripcion Cuestionario: %s \n", objCuestionario.getDescripcion());
         System.out.println("------Preguntas:------");
         objCuestionario.getPreguntas().forEach(pregunta -> {
             System.out.printf("Pregunta: %s \n", pregunta.getEnunciado());
-            System.out.println("Tipo de Pregunta:");
-            System.out.printf("Id: %d, Nombre: %s, Descripcion: %s ", pregunta.getObjTipoPregunta().getIdtippregunta(), pregunta.getObjTipoPregunta().getNombre(), pregunta.getObjTipoPregunta().getDescripcion());
+            System.out.println("Tipo de Pregunta: \n");
+            System.out.printf("Id: %d, Nombre: %s, Descripcion: %s \n", pregunta.getObjTipoPregunta().getIdtippregunta(), pregunta.getObjTipoPregunta().getNombre(), pregunta.getObjTipoPregunta().getDescripcion());
 
             System.out.println("------Respuestas:-------");
 
-            System.out.println("Tamaño de la lista de respuestas: "+pregunta.getListaRespuestas().size());
-
             //Respuesta objRespuesta = servicioBDRespuestas.findById().get();
-
             pregunta.getListaRespuestas().forEach(respuesta -> {
-                System.out.printf("Id: %d, Descripcion: %s", respuesta.getIdrespuesta(), respuesta.getDescripcion());
-                System.out.printf("Docente:");
-                System.out.printf("Id: %d, Nombres: %s, Apellidos: %s", respuesta.getObjDocente().getIdpersona(), respuesta.getObjDocente().getNombres(), respuesta.getObjDocente().getApellidos());
+                System.out.printf("Id: %d, Descripcion: %s \n", respuesta.getIdrespuesta(), respuesta.getDescripcion());
+                System.out.printf("Docente: \n");
+                System.out.printf("Id: %d, Nombres: %s,  %s \n", respuesta.getObjDocente().getIdpersona(), respuesta.getObjDocente().getNombres(), respuesta.getObjDocente().getApellidos());
             });
         });
-
 
     }
 

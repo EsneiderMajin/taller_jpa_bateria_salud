@@ -23,11 +23,6 @@ public class Docente extends Persona{
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "objDocente")
     private Telefono objTelefono;
 
-    /*
-    @OneToOne(mappedBy = "objDocente")
-    private Respuesta objRespuesta;
-    */
-
     @OneToMany(mappedBy = "objDocente")
     private List<Respuesta> listaRespuestas;
 
